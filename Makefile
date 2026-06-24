@@ -1,4 +1,4 @@
-.PHONY: help create-office destroy-office
+.PHONY: help create-distrobox destroy-distrobox build-podman install-podman
 
 help: ## Show this help
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | \
@@ -6,20 +6,18 @@ help: ## Show this help
 
 # --- Distrobox containers ---
 
-create-office: ## Create the office distrobox container
+create-distrobox:
 	distrobox assemble create --file containers/office/distrobox.ini
 
-destroy-office: ## Destroy the office distrobox container
+destroy-distrobox:
 	distrobox assemble rm --file containers/office/distrobox.ini
 
 # --- Podman containers ---
-# Example target for a future podman container:
-#
-# build-<name>: ## Build the <name> podman image
-# 	podman build -t <name> \
-# 		-f containers/<name>/Containerfile \
-# 		--build-arg COMMON_DIR=common_dotfiles \
-# 		.
-#
-# run-<name>: ## Run the <name> podman container
-# 	podman run --rm -it -v $$(pwd):/workspace:Z <name>
+
+build-podman:
+	podman build -t claude-code \
+		-f containers/claude-code/Containerfile \
+		.
+
+install-podman: ## Install wrapper to ~/.local/bin
+	install -Dm755 scripts/claude-sandbox.sh $(HOME)/.local/bin/claude-sandbox

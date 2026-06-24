@@ -1,0 +1,23 @@
+FROM node:22-slim
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    git \
+    curl \
+    wget \
+    jq \
+    gh \
+    && rm -rf /var/lib/apt/lists/* \
+    && npm install -g @anthropic-ai/claude-code
+
+# Bake default configs (skills, etc.) into the image
+# Structure mirrors ~/.claude/ -- entrypoint symlinks top-level children
+COPY common_dotfiles/agent-skills /usr/local/share/config/claude-code/skills
+
+# Entrypoint: symlinks baked-in defaults into persistent home, then exec's CMD
+COPY scripts/claude-code-entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+WORKDIR /workspace
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["claude"]
