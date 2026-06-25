@@ -1,12 +1,12 @@
-# Distrobox Toolkit
+# Container Toolkit
 
-Container definitions for distrobox and podman.
+Container definitions for distrobox and podman to use applications in a more or less sandboxed environment without polluting the host system.
 
 ## Structure
 
 ```
 common_dotfiles/
-  agent-skills/                    # Shared configurations baked into podman images
+  <some-config-folder>/            # Shared configurations baked into podman images
 containers/
   <container-name>/
     distrobox.ini                  # Distrobox container definition
@@ -45,5 +45,5 @@ Wrapper scripts for podman containers are installed to `~/.local/bin/` and can b
 
 ## Creating New Containers
 
-- **Distrobox**: Add a `distrobox.ini` file in `containers/<name>/` and add corresponding targets to the Makefile
-- **Podman**: Add a `Containerfile` in `containers/<name>/` and add corresponding targets to the Makefile
+- **Distrobox**: Add a `distrobox.ini` file in `containers/<name>/`.
+- **Podman**: Add a `Containerfile` in `containers/<name>/` and add a corresponding wrapper script.
