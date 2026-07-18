@@ -23,7 +23,9 @@ COPY --from=ghcr.io/astral-sh/uv:0.11.29 /uv /uvx /bin
 ENV PATH="/root/.local/bin:${PATH}"
 RUN uv tool install graphifyy && \
     graphify install && \
-    mv /root/.claude/skills/graphify /usr/local/share/config/claude-code/skills/graphify
+    mv /root/.claude/skills/graphify /usr/local/share/config/claude-code/skills/graphify && \
+    claude plugin marketplace add DietrichGebert/ponytail && \
+    claude plugin install ponytail@ponytail
 
 WORKDIR /workspace
 ENTRYPOINT ["/entrypoint.sh"]
