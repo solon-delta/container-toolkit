@@ -19,6 +19,12 @@ COPY common_dotfiles/agent-skills /usr/local/share/config/claude-code/skills
 COPY scripts/claude-code-entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
+COPY --from=ghcr.io/astral-sh/uv:0.11.29 /uv /uvx /bin
+ENV PATH="/root/.local/bin:${PATH}"
+RUN uv tool install graphifyy && \
+    graphify install && \
+    mv /root/.claude/skills/graphify /usr/local/share/config/claude-code/skills/graphify
+
 WORKDIR /workspace
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["claude"]
