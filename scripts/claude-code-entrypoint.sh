@@ -17,4 +17,13 @@ for item in "$CONFIG_DEFAULTS"/*; do
     fi
 done
 
+# Configure git to push to GitHub over HTTPS using the already-mounted gh token.
+# Avoids needing any SSH key/agent inside the sandbox.
+if gh auth status >/dev/null 2>&1; then
+    gh auth setup-git >/dev/null 2>&1 || true
+    # Route existing SSH-style GitHub remotes through HTTPS so they use the token too.
+    git config --global --replace-all url."https://github.com/".insteadOf "git@github.com:"
+    git config --global --add url."https://github.com/".insteadOf "ssh://git@github.com/"
+fi
+
 exec "$@"
