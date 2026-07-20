@@ -17,6 +17,13 @@ for item in "$CONFIG_DEFAULTS"/*; do
     fi
 done
 
+# Install plugins that live in $HOME/.claude. This can't happen at image build time
+# because $HOME/.claude is typically a volume mounted over the baked-in one at runtime.
+if ! claude plugin list --json 2>/dev/null | jq -e 'any(.[]; .id == "ponytail@ponytail")' >/dev/null 2>&1; then
+    claude plugin marketplace add DietrichGebert/ponytail || true
+    claude plugin install ponytail@ponytail || true
+fi
+
 # Configure git to push to GitHub over HTTPS using the already-mounted gh token.
 # Avoids needing any SSH key/agent inside the sandbox.
 if gh auth status >/dev/null 2>&1; then
