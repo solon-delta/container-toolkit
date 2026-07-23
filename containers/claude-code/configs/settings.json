@@ -13,7 +13,7 @@
       "Edit(/tmp/**)",
       "Read(~/.claude/skills/**)",
       "Read(~/.claude/settings.json)",
-      "Read(/usr/local/share/config/claude-code/skills)"
+      "Read(/usr/local/share/config/claude-code/skills/**)"
     ],
     "deny": [
       "Read(~/.config/gh/**)",
