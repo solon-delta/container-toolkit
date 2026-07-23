@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git status:*)",
+      "Bash(git remote -v:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(gh issue view:*)",
+      "Bash(gh issue list:*)",
+      "Bash(glab issue view:*)",
+      "Bash(glab issue list:*)",
+      "Bash(ls:*)",
+      "Write(/tmp/**)",
+      "Edit(/tmp/**)"
+    ],
+    "deny": [
+      "Read(~/.config/gh/**)",
+      "Read(~/.config/glab-cli/**)",
+      "Read(~/.claude/.credentials.json)",
+      "Grep(~/.config/gh/**)",
+      "Grep(~/.config/glab-cli/**)",
+      "Grep(~/.claude/.credentials.json)"
+    ]
+  }
+}

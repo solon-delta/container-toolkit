@@ -15,6 +15,7 @@ RUN apt-get update && apt-get install -y \
 # Bake default configs (skills, etc.) into the image
 # Structure mirrors ~/.claude/ -- entrypoint symlinks top-level children
 COPY common_dotfiles/agent-skills /usr/local/share/config/claude-code/skills
+COPY containers/claude-code/configs/settings.json /usr/local/share/config/claude-code/settings.json
 
 # Entrypoint: symlinks baked-in defaults into persistent home, then exec's CMD
 COPY scripts/claude-code-entrypoint.sh /entrypoint.sh
