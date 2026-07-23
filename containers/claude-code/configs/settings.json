@@ -1,17 +1,19 @@
 {
   "permissions": {
     "allow": [
-      "Bash(git status:*)",
-      "Bash(git remote -v:*)",
-      "Bash(git diff:*)",
-      "Bash(git log:*)",
-      "Bash(gh issue view:*)",
-      "Bash(gh issue list:*)",
-      "Bash(glab issue view:*)",
-      "Bash(glab issue list:*)",
-      "Bash(ls:*)",
-      "Write(/tmp/**)",
-      "Edit(/tmp/**)"
+      "Bash(git status*)",
+      "Bash(git remote -v)",
+      "Bash(git diff*)",
+      "Bash(git log*)",
+      "Bash(gh issue view*)",
+      "Bash(gh issue list*)",
+      "Bash(glab issue view*)",
+      "Bash(glab issue list*)",
+      "Bash(ls*)",
+      "Edit(/tmp/**)",
+      "Read(~/.claude/skills/**)",
+      "Read(~/.claude/settings.json)",
+      "Read(/usr/local/share/config/claude-code/skills)"
     ],
     "deny": [
       "Read(~/.config/gh/**)",
