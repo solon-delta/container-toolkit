@@ -19,4 +19,5 @@ This rule applies to the following situations:
 - documentation
 - code comments
 - error messages
-- git operations
+- git actions: commits, branches, tags
+- git host text: tickets, merge proposals, comments
