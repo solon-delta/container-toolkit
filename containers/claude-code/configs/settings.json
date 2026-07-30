@@ -23,5 +23,30 @@
       "Grep(~/.config/glab-cli/**)",
       "Grep(~/.claude/.credentials.json)"
     ]
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|resume|clear|compact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node /usr/local/share/config/claude-code/hooks/soul-session-start.js",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "SubagentStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node /usr/local/share/config/claude-code/hooks/soul-subagent-start.js",
+            "timeout": 5
+          }
+        ]
+      }
+    ]
   }
 }
