@@ -24,6 +24,10 @@
       "Grep(~/.claude/.credentials.json)"
     ]
   },
+  "attribution": {
+    "commit": "",
+    "pr": ""
+  },
   "hooks": {
     "SessionStart": [
       {
