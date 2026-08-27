@@ -18,6 +18,10 @@ build-podman:
 	podman build -t claude-code \
 		-f containers/claude-code/Containerfile \
 		.
+	podman build -t pi \
+		-f containers/pi/Containerfile \
+		.
 
-install-podman: ## Install wrapper to ~/.local/bin
+install-podman: ## Install wrappers to ~/.local/bin
 	install -Dm755 scripts/claude-sandbox.sh $(HOME)/.local/bin/claude-sandbox
+	install -Dm755 scripts/pi-sandbox.sh $(HOME)/.local/bin/pi-sandbox

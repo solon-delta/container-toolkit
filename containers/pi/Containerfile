@@ -1,0 +1,25 @@
+FROM docker.io/library/node:26.5-trixie
+
+# Install system dependencies (same CLI tools as claude-code)
+RUN apt-get update && apt-get install -y \
+    git \
+    curl \
+    wget \
+    jq \
+    gh \
+    glab \
+    podman \
+    && rm -rf /var/lib/apt/lists/* \
+    && npm install -g --ignore-scripts @earendil-works/pi-coding-agent
+
+# Bake default configs (skills) into the image
+# Structure mirrors ~/.pi/agent/ -- entrypoint symlinks skills
+COPY common_dotfiles/agent-skills /usr/local/share/config/pi/skills
+
+# Entrypoint: symlinks baked-in defaults into persistent home, then exec's CMD
+COPY scripts/pi-entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+WORKDIR /workspace
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["pi"]
