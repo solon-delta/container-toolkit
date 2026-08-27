@@ -12,12 +12,18 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/* \
     && npm install -g --ignore-scripts @earendil-works/pi-coding-agent
 
-# Bake default configs (skills) into the image
-# Structure mirrors ~/.pi/agent/ -- entrypoint symlinks skills
+# Bake default configs (skills, settings) into the image
+# Structure mirrors ~/.pi/agent/ -- entrypoint symlinks/merges into persistent home
 COPY common_dotfiles/agent-skills /usr/local/share/config/pi/skills
+COPY containers/pi/configs/settings.json /usr/local/share/config/pi/settings.json
 
-# Entrypoint: symlinks baked-in defaults into persistent home, then exec's CMD
-COPY scripts/pi-entrypoint.sh /entrypoint.sh
+ENV AGENT_CONFIG_DEFAULTS=/usr/local/share/config/pi \
+    AGENT_TARGET_DIR=/root/.pi/agent \
+    AGENT_SETTINGS_NAME=settings.json \
+    PI_SKIP_VERSION_CHECK=1
+
+# Entrypoint: symlinks baked-in defaults and merges settings, then exec's CMD
+COPY scripts/entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
 WORKDIR /workspace

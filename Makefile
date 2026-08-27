@@ -23,5 +23,6 @@ build-podman:
 		.
 
 install-podman: ## Install wrappers to ~/.local/bin
+	install -Dm755 scripts/sandbox.sh $(HOME)/.local/bin/sandbox
 	install -Dm755 scripts/claude-sandbox.sh $(HOME)/.local/bin/claude-sandbox
 	install -Dm755 scripts/pi-sandbox.sh $(HOME)/.local/bin/pi-sandbox

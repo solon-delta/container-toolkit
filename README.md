@@ -12,8 +12,9 @@ containers/
     distrobox.ini                  # Distrobox container definition
     Containerfile                  # Podman container definition
 scripts/
-  <container>-entrypoint.sh        # Container entrypoint scripts
-  <container>-sandbox.sh           # Host wrapper scripts
+  entrypoint.sh                    # Shared container entrypoint (env-var driven)
+  sandbox.sh                       # Shared host sandbox launcher (env-var driven)
+  <container>-sandbox.sh           # Thin host wrappers setting AGENT_NAME/AGENT_IMAGE
 ```
 
 - **Distrobox containers** use `distrobox assemble` and inherit the host shell and
@@ -22,8 +23,11 @@ scripts/
 - **Podman containers** are built from a Containerfile. Shared configs from
   `common_dotfiles/` are baked into the image at build time. Persistent state
   (auth, session data) is stored under `$DBX_CONTAINER_HOME_PREFIX/<container>/`
-  and bind-mounted at runtime. An entrypoint script symlinks baked-in defaults
-  into the persistent home without overwriting existing files.
+  and bind-mounted at runtime. A single shared entrypoint (`scripts/entrypoint.sh`)
+  symlinks baked-in defaults into the persistent home without overwriting
+  existing files, and merges the baked-in settings file into the live one so
+  image default updates keep reaching existing users. Behavior is controlled
+  per-container via the `AGENT_*` environment variables set in each Containerfile.
 
 ## Prerequisites
 
