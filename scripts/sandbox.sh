@@ -22,7 +22,8 @@ PODMAN_SOCK="${PODMAN_SOCK:-/run/user/$(id -u)/podman/podman.sock}"
 exec podman run --rm -it \
     --name "$CONTAINER_NAME" \
     -v "$CONTAINER_HOME:/root:Z" \
-    -v "$(pwd):/workspace:Z" \
+    -v "$(pwd):$(pwd):Z" \
+    -w "$(pwd)" \
     -v "$HOME/.config/gh:/root/.config/gh:Z" \
     ${PODMAN_SOCK:+-v "$PODMAN_SOCK:/run/podman/podman.sock:Z"} \
     ${PODMAN_SOCK:+-e "CONTAINER_HOST=unix:///run/podman/podman.sock"} \
