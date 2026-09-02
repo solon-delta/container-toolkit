@@ -26,7 +26,8 @@
   },
   "attribution": {
     "commit": "",
-    "pr": ""
+    "pr": "",
+    "sessionUrl": false
   },
   "hooks": {
     "SessionStart": [
